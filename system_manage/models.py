@@ -7,4 +7,9 @@ User = settings.AUTH_USER_MODEL
 # Create your models here.
 
 
-class Users(models.Model)
+class Users(models.Model):
+    pass
+
+
+class Books(models.Model):
+    pass
