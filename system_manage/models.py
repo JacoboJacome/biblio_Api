@@ -4,31 +4,6 @@ from django.conf import settings
 
 User = settings.AUTH_USER_MODEL
 
-class UserProfile(models.Model):
-    name = models.CharField(max_length=50, blank=False)
-    last_name = models.CharField(max_length=50, blank=False)
-    e_mail = models.EmailField(blank=False)
-    password = models.CharField(max_length=255, blank=False)
-    staff = models.BooleanField(default=False, blank=False)
-    user_name = models.ForeignKey(User, blank=False, max_length=50)
-    date_of_membership: models.DateField()
-    total_books_checkedout: models.IntegerField()
-    
-    def add_book_item(self):
-        pass
-    
-    def block_member(self):
-        pass
-    
-    def unblock_member(self):
-        pass
-    
-    def get_total_checkedout_books(self):
-        pass
-    
-    def reset_password(self):
-        pass
-
 class Author(models.Model):
     name = models.CharField(max_length=100),
     last_name = models.CharField(max_length=100),
