@@ -11,8 +11,8 @@ class UserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            name=self.normalize_name(name),
-            last_name=self.normalize_last_name(last_name)
+            # name=self.normalize_name(name),
+            # last_name=self.normalize_last_name(last_name)
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -72,3 +72,24 @@ class User(AbstractBaseUser):
     
     def reset_password(self):
         pass
+    
+    def get_full_name(self):
+        return self.name
+
+    def has_module_perms(self, perm, obj=None):
+        return True
+
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    @property
+    def is_admin(self):
+        return  self.admin
+
+    @property
+    def is_staff(self):
+        return self.staff
+
+    def __str__(self):
+        return self.email
