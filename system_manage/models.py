@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from django.conf import settings
 
@@ -55,22 +56,22 @@ class Book(models.Model):
     def get_title(self):
         return self.title
 
-class BookItem():
+class BookItem(models.Model):
     title = models.CharField(max_length=100),
     subject = models.CharField(max_length=100),
     added = models.DateField(),
     published = models.CharField(max_length=50),
     language = models.CharField(max_length=100),
     number_of_pages = models.IntegerField(),
-    book = models.ManyToManyField(Book)
     bar_code = models.CharField(max_length=100)
-    library = models.ManyToOneRel(Library)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    library = models.ForeignKey(Library, on_delete=models.CASCADE)
     
     def checkout(self):
         pass
 
 
-class Rack():
+class Rack(models.Model):
     number : models.ImageField()
     location_identifer: models.CharField(max_length=100)
-    book_item : models.ManyToOneRel(BookItem)
+    book_item : models.ForeignKey(BookItem, on_delete=models.CASCADE)
