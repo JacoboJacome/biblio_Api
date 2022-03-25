@@ -46,8 +46,8 @@ class User(AbstractBaseUser):
     cellphone = models.CharField(max_length=10)
     name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    date_of_membership: models.DateField()
-    total_books_checkedout: models.IntegerField()
+    date_of_membership = models.DateField()
+    total_books_checkedout = models.IntegerField()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 

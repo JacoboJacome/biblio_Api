@@ -11,17 +11,16 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ('name', 'last_name', 'description')
         
 
-class CatalogSerializer(serializers.ModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
         depth = 1
         
-class BookSerializer(serializers.ModelSerializer):
+class CreateBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = '__all__'
-        depth = 0
+        fields = ('title', 'category', 'added', 'published', 'language', 'number_of_pages', 'author')
         
 class BookItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,8 +31,9 @@ class BookItemSerializer(serializers.ModelSerializer):
 class CreateBookItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookItem
-        fields = '__all__'
+        fields = ('cuantity', 'bar_code','book','library','rack')
         
-        
-        
-
+class RentBookSerializer(serializers.Serializer):
+    class Meta:
+        model = BookItem
+        fields = ('cuantity',)

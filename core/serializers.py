@@ -2,6 +2,9 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
+from system_manage.models import BookItem
+from system_manage.serializers import BookItemSerializer
+
 User = get_user_model()
 
 
@@ -28,4 +31,10 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "email", 'staff', 'name', 'last_name')
+        fields = ("id", "email", 'staff', 'name', 'last_name', 'total_books_checkedout')
+        
+
+class RentBookSerializer(serializers.Serializer):
+    class Meta:
+        model = BookItem
+        fields = '__all__'
