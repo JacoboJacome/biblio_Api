@@ -1,6 +1,4 @@
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from django.db import models
 
 from .models import Book, Author, BookItem, Library, Rack
 
@@ -35,15 +33,17 @@ class BookItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookItem
         fields = '__all__'
-        # depth = 2
         
 class CreateBookItemSerializer(serializers.ModelSerializer):
+    total=serializers.IntegerField()
     class Meta:
         model = BookItem
-        fields = ('quantity','book','library','rack')
+        fields = ('book','library','rack','total')
+        
         
 class RentBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookItem
-        fields = ('book','rent_book','quantity')        
+        fields = ('id','book','rent_book','quantity','library','rack')
+        # depth=1        
 

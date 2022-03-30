@@ -1,3 +1,4 @@
+from email.policy import default
 from tkinter import CASCADE
 from uuid import uuid4
 from django.db import models
@@ -53,14 +54,12 @@ class Book(models.Model):
     
     
 class BookItem(models.Model):
-    quantity = models.IntegerField(blank=False)
+    quantity = models.IntegerField(blank=False, default=1)
     codig_UUID = models.UUIDField(default=uuid4)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     library = models.ForeignKey(Library, on_delete=models.CASCADE)
     rack = models.ForeignKey(Rack, on_delete=models.CASCADE)
     rent_book = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
     
-    def checkout(self):
-        pass
 
 

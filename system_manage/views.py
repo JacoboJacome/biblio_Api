@@ -1,9 +1,6 @@
 
-from core import serializers
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework import status, viewsets
-from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 
 
@@ -48,7 +45,7 @@ class CatalogLibrary(ModelViewSet):
             return CreateBookSerializer   
         return BookSerializer
     
-class GetBookItem(ModelViewSet):
+class CreateBookItem(ModelViewSet):
     serializer_class = BookItemSerializer
     queryset = BookItem.objects.all()
     
@@ -57,23 +54,24 @@ class GetBookItem(ModelViewSet):
             return CreateBookItemSerializer
         return BookItemSerializer
 
-    # def create(self,request,*args,**kwargs):
-    #     serializer = self.get_serializer(data = request.data)
-    #     if serializer.is_valid():
-    #         quantity = BookItem
-    #         for i in quantity.quantity:
-    #             BookItem.objects.create('quantity','codig_UUID','book','library','rack','rent_book')
-    
+    def create(self,request,*args,**kwargs):
+        total = request.data['total']
+        models=[]
+        for i in range(int(total)):
+            serializer = BookItemSerializer(data=request.data)
+            if serializer.is_valid():
+                models.append(serializer)
+                
+        save_models=[model.save() for model in models]
+        resuls_serializer=BookItemSerializer(save_models,many=True)
+        return Response(resuls_serializer.data)
 
 class RentBook(ModelViewSet):
     serializer_class = RentBookSerializer
     queryset = BookItem.objects.all()
 
     def get_serializer_class(self):
-        if self.action == "create":
+        if self.action == "update":
             return RentBookSerializer
         return RentBookSerializer
-    
-
-    
     
