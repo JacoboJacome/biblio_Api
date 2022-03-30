@@ -41,26 +41,26 @@ class GetBookItem(ModelViewSet):
         return BookItemSerializer
 
 
-class RentBook(ModelViewSet):
-    serializer_class = BookItemSerializer
-    queryset = BookItem.objects.all()
+# class RentBook(ModelViewSet):
+#     serializer_class = BookItemSerializer
+#     queryset = BookItem.objects.all()
 
-    def get_serializer_class(self):
-        if self.action == "partial_update":
-            serializer_class = RentBookSerializer
-        return BookItemSerializer
+#     def get_serializer_class(self):
+#         if self.action == "partial_update":
+#             serializer_class = RentBookSerializer
+#         return BookItemSerializer
     
-    @action(detail=True, methods = ['PUT','GET'])
-    def rent_book(self,request,pk):
-        return Response ( print(request.data) )
+#     @action(detail=True, methods = ['PUT','GET'])
+#     def rent_book(self,request,pk):
+#         return Response ( print(request.data) )
     
-    # @action(detail=True, methods=['put'])
-    # def rent_book(self, request, pk):
-    #     book = self.get_object()
-    #     serializer = RentBookSerializer
-    #     if serializer.is_valid():
-    #         book.rent_book(serializer.validated_data['cuantity'])
-    #         book.save()
-    #         return Response(serializer.data,status=status.HTTP_201_CREATED)
-    #     else:
-    #         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST) 
+#     # @action(detail=True, methods=['put'])
+#     # def rent_book(self, request, pk):
+#     #     book = self.get_object()
+#     #     serializer = RentBookSerializer
+#     #     if serializer.is_valid():
+#     #         book.rent_book(serializer.validated_data['cuantity'])
+#     #         book.save()
+#     #         return Response(serializer.data,status=status.HTTP_201_CREATED)
+#     #     else:
+#     #         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST) 

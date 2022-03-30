@@ -37,4 +37,4 @@ class UserSerializer(serializers.ModelSerializer):
 class RentBookSerializer(serializers.Serializer):
     class Meta:
         model = BookItem
-        fields = '__all__'
+        fields = ('users','cuantity')

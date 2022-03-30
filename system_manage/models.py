@@ -57,6 +57,7 @@ class BookItem(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     library = models.ForeignKey(Library, on_delete=models.CASCADE)
     rack = models.ForeignKey(Rack, on_delete=models.CASCADE)
+    users = models.ManyToManyField(User)
     
     def checkout(self):
         pass

@@ -6,9 +6,9 @@ from rest_framework import status
 
 User = get_user_model()
 
-from .serializers import RentBookSerializer, UserSerializer, CreateUserSerializer, RentBookSerializer
+from core.serializers import RentBookSerializer, UserSerializer, CreateUserSerializer
 from system_manage.models import Book, BookItem
-from system_manage.serializers import BookItemSerializer
+from system_manage.serializers import BookItemSerializer, BookSerializer
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
@@ -19,13 +19,18 @@ class UserViewSet(ModelViewSet):
             return CreateUserSerializer
         return UserSerializer
 
-    serializer_class = BookItemSerializer
-
-    @action(detail=True, methods=['post','get'])
-    def total_books_checkedout(self, request, pk):
-        user = self.get_object()
-        serializer = UserSerializer(data=request.data)
-        if User.objects.filter(id=pk):
-            return Response(print(User.objects.filter(id=pk)))
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    @action(detail=True)
+    def total_books_checkedout(self, request, *arg, **kwargs):
+        print(request.data)
+        books = BookItem.objects.all()
+        serializer = RentBookSerializer(books, many=True)
+        return Response(serializer.data, status=200)
+     
+class BooksUser(ModelViewSet):
+    serializer_class = RentBookSerializer
+    queryset = BookItem.objects.all()
+    
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return RentBookSerializer
+        return UserSerializer 
