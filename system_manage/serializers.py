@@ -33,6 +33,7 @@ class BookItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookItem
         fields = '__all__'
+        depth = 1
         
 class CreateBookItemSerializer(serializers.ModelSerializer):
     total=serializers.IntegerField()
@@ -45,5 +46,7 @@ class RentBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookItem
         fields = ('id','book','rent_book','quantity','library','rack')
-        # depth=1        
+        # depth=1  
+  
+
 
