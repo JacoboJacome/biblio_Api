@@ -1,5 +1,5 @@
 from itertools import count
-from rest_framework import status
+from rest_framework import status, permissions
 from core import serializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -9,6 +9,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 #*Imports from system_manage
 from .serializers import AuthorSerializer, CreateBookSerializer, BookItemSerializer, BookSerializer, CreateBookItemSerializer, LibrarySerializer, RackSerializer, RentBookSerializer
 from .models import Book, Author, BookItem, Library, Rack
+from .permissions import IsOwnerOrReadOnly
 
 #*Imports From Core
 from core.models import User
@@ -45,6 +46,7 @@ class CreateAuthor(ModelViewSet):
 class CatalogLibrary(ModelViewSet):
     serializer_class = BookSerializer
     queryset = Book.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['title','author','published','category']
     
